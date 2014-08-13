@@ -1,2 +1,11 @@
-<h1 align="center">Welcome!</h1>
-<p align="center">Bookit is an open market place! Sign up for an account to continue!</p>
+<% if current_user.role == "business" %>
+  <%= render partial: 'business' %>
+<% elsif current_user.role == "client" %>
+  <%= render partial: 'client' %>
+<% else %>
+  <h1>Select what type of user you want to be!</h1>
+  <div align="center">
+    <%= button_to "Business", {:controller => "usertype", :action => "index", :role => "business" } , :method => :post %>
+    <%= button_to "Client", {:controller => "usertype", :action => "index", :role => "client" } , :method => :post %>
+  </div>
+<% end %>
