@@ -1,11 +1,14 @@
 Bookit::Application.routes.draw do
-  post "usertype/index"
+  post "usertype/update"
   devise_for :users
   authenticated :user do
     root :to => "welcome#index", as: :authenticated_root
   end
   root "welcome#landing"
   resources :welcome
+  resources :products, except: [:new]
+  resources :clients
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

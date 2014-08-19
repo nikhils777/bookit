@@ -1,0 +1,19 @@
+<h1>Welcome Client User!</h1>
+<p>Checkout all the businesses and products they have to offer!</p>
+<% @businesses.each do |b| %>
+<h2 align="center">b.email</h2>
+<table class="table table-bordered" align="center">
+  <tr class="info">
+    <td> Product Name </td>
+    <td> Time Length(minutes) </td>
+  </tr>
+<% b.products.each do |p| %>
+  <tr>
+    <td> <%= link_to p.name, product_path(p) %> </td>
+    <td> p.length </td>
+  </tr>
+<% end %>
+</table>
+<br>
+<% end %>
+

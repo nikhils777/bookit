@@ -1,5 +1,5 @@
 class UsertypeController < ApplicationController
-  def index
+  def update
     User.find(current_user.id).update_attributes(role: params[:role])
     if User.find(current_user.id).role == params[:role]
       redirect_to root_path, notice: "Role Saved!"

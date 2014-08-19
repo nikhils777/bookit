@@ -1,0 +1,13 @@
+<%= form_for Product.new do |f| %>
+<div align="center">
+  <h2>Create a new product!</h2>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control', placeholder: "Enter product name" %>
+  <%= f.label :description %>
+  <%= f.text_area :description, rows: 2, class: 'form-control', placeholder: "Enter description" %>
+  <%= f.label :length %>
+  <%= f.text_field :length, class: 'form-control', placeholder: "Enter time duration in whole minutes" %>
+  <%= f.submit "Save", class: 'btn btn-success' %>
+</div>
+<% end %>
+
