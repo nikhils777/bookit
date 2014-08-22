@@ -10,7 +10,7 @@
   <div class="container">
         <ul class="nav nav-tabs">
          <li> <%= link_to "Home", root_path %></li>
-         <% if current_user.role?(:business) %>
+         <% if current_user && current_user.role?(:business) %>
          <li> <%= link_to "Get Setup to Recieve Payments!", new_recipient_path %></li>
          <% end %>
          <div class="pull-right user-info">
