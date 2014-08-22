@@ -6,6 +6,7 @@ gem 'devise'
 gem 'figaro'
 gem 'pundit'
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'stripe'
 # Use sqlite3 as the database for Active Record
 group :production do
    gem 'pg'

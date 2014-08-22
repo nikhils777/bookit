@@ -1,0 +1,115 @@
+<h1 align="center">Book an event with <%= @user.name %>!</h1>
+<div class="row">
+  <div class="col-md-4">
+    <h5 align="center">Events already booked with <%= @user.name %></h5>
+    <table class="table table-bordered" align="center">
+      <tr class="info">
+        <td> Date </td>
+        <td> Client </td>
+        <td> Product </td>
+        <td> Start </td>
+        <td> End </td>
+      </tr>
+    <% @confbookings.each do |c| %>
+      <tr>
+        <td> <%= c.date %> </td>
+        <td> <%= User.find(c.user_id).name %> </td>
+        <% if Product.where(id: c.product_id).count > 0 %>  
+        <td> <%= Product.find(c.product_id).name %> </td>
+        <% else %>
+        <td> Product no longer exists!</td>
+        <% end %>
+        <td> <%= c.start %> </td>
+        <td> <%= c.end %> </td>
+      </tr>
+    <% end %>
+    </table>
+    <br>
+    <h5 align="center">Bookings pending confirmation from <%= @user.name %></h5>
+    <table class="table table-bordered" align="center">
+      <tr class="info">
+        <td> Date </td>
+        <td> Client </td>
+        <td> Product </td>
+        <td> Start </td>
+        <td> End </td>
+      </tr>
+    <% @bookings.each do |b| %>
+      <tr>
+        <td> <%= b.date %> </td>
+        <td> <%= User.find( b.user_id ).name %> </td>
+        <% if Product.where(id: b.product_id).count > 0 %>  
+        <td> <%= Product.find(b.product_id).name %> </td>
+        <% else %>
+        <td> Product no longer exists!</td>
+        <% end %>
+        <td> <%= b.start %> </td>
+        <td> <%= b.end %> </td>
+        </tr>
+    <% end %>
+    </table>
+  <br>
+  </div>
+  <div class="col-md-4">
+    <h2 align="center">Services/Products</h2>
+    <table class="table table-bordered" align="center">
+      <tr class="info">
+        <td> Product Name </td>
+        <td> Price </td>
+        <td> Length(minutes) </td>
+      </tr>
+    <% @user.products.each do |product| %>
+      <tr>
+        <td> <%= link_to product.name, product_path(product) %> </td>
+        <td> <%= product.price %> </td>
+        <td> <%= product.length %> </td>
+      </tr>
+    <% end %>
+    </table>
+    <h2 align="center">Available Times</h2>
+    <table class="table table-bordered" align="center">
+      <tr class="info">
+        <td> Date </td>
+        <td> Start Time </td>
+        <td> End Time </td>
+      </tr>
+      <% @user.availabilities.each do |a| %>
+      <tr>
+        <td> <%= a.date %> </td>
+        <td> <%= a.start %> </td>
+        <td> <%= a.end %> </td>
+      </tr>
+      <% end %>
+    </table>
+    <br>
+  </div>
+  <div class="col-md-4">
+    <h5>Select a Product!</h5>
+    <%= form_for Booking.new do |b| %>
+      <%= b.hidden_field :uid, {:value => @user.id} %>
+      <%= b.collection_select :product_id, @products, :id, :name %>
+      <br>
+      <%= b.label :date %>
+      <%= b.text_field :date, class: 'form-control', placeholder: "mm/dd/yyyy(Must be in this format!)" %>
+      <%= b.label :start %>
+      <%= b.text_field :start, class: 'form-control', placeholder: "Enter a start time (ex. 7am)" %>
+      <%= b.label :end %>
+      <%= b.text_field :end, class: 'form-control', placeholder: "Enter a finish time (ex. 9am)" %>
+      <%= b.submit "Bookit!", class: 'btn btn-success' %>
+    <% end %>
+  <br>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

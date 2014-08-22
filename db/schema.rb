@@ -11,7 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813221957) do
+ActiveRecord::Schema.define(version: 20140822162838) do
+
+  create_table "availabilities", force: true do |t|
+    t.text     "date"
+    t.text     "start"
+    t.text     "end"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "availabilities", ["user_id"], name: "index_availabilities_on_user_id"
+
+  create_table "bookings", force: true do |t|
+    t.text     "date"
+    t.text     "start"
+    t.text     "end"
+    t.integer  "uid"
+    t.boolean  "confirmed",  default: false
+    t.boolean  "paid",       default: false
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "name"
+  end
+
+  add_index "bookings", ["product_id"], name: "index_bookings_on_product_id"
+  add_index "bookings", ["user_id"], name: "index_bookings_on_user_id"
+
+  create_table "messages", force: true do |t|
+    t.text     "bstart"
+    t.text     "b_end"
+    t.text     "bdate"
+    t.integer  "uid"
+    t.text     "info"
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "booking_id"
+    t.text     "name"
+    t.text     "ctime"
+  end
+
+  add_index "messages", ["product_id"], name: "index_messages_on_product_id"
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -20,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140813221957) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "price"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"
@@ -43,6 +90,7 @@ ActiveRecord::Schema.define(version: 20140813221957) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role"
+    t.string   "recipient_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
